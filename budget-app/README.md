@@ -11,7 +11,7 @@
 * [Inspiration](#inspiration)
 
 ## General info
-This is a Budget app which allows, if it does not sound strange, to calculate the budget.  
+This is a Budget app which allows, if it does not sound strange, to calculate the budget!   
 Also it has quite enough features to show:)
 
 
@@ -31,7 +31,7 @@ List of features ready and TODOs for future development
 * Adding and deleting items
 * Sorting
 * Form validation
-* Total balance
+* Total balance (changes colors)
 
 To-do list:
 * Improve form validation (add custom validation for comment)
