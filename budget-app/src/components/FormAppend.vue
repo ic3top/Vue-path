@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   name: "FormAppend",
   data() {
@@ -59,13 +61,18 @@ export default {
     };
   },
   methods: {
+    ...mapMutations([
+        'showAll',
+        'addItem'
+    ]),
     onSubmit() {
       this.$refs.addItemForm.validate(valid => {
         if (valid) {
           this.formData.value = this.formData.type === 'OUTCOME' ?
               -Math.abs(this.formData.value) :
               Math.abs(this.formData.value);
-          this.$emit('submitForm', {...this.formData});
+          this.addItem({...this.formData});
+          this.showAll();
           this.$refs.addItemForm.resetFields();
         }
       });

@@ -2,7 +2,7 @@
   <div class="list-item">
     <span class="budget-comment">{{ comment }}</span>
     <span class="budget-value">{{ value }}<i :class="icon"></i></span>
-    <el-button type="danger" @click="deleteItem" icon="el-icon-delete"></el-button>
+    <el-button type="danger" @click="deleteItem(id)" icon="el-icon-delete"></el-button>
   </div>
 </template>
 
@@ -27,11 +27,10 @@ export default {
       required: true
     }
   },
-  emits: ['deleteItem'],
   methods: {
-    deleteItem() {
+    deleteItem(id) {
       if (confirm(`The "${this.comment}" will be deleted, are you sure?`)) {
-        this.$emit('deleteItem', this.id);
+        this.$store.commit('deleteItem', id);
       }
     }
   },
