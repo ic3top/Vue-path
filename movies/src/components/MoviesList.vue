@@ -1,6 +1,6 @@
 <template>
   <MDBContainer>
-    <h3 class="list-title text-light lh-lg">IMDB Top 250</h3>
+    <h3 class="list-title text-light lh-lg">{{ listTitle }}</h3>
     <MDBRow>
       <template v-if="isExist">
         <MDBCol col="3" v-for="(movie, key) in list" :key="key">
@@ -19,7 +19,7 @@
 
 <script>
 import { MDBContainer, MDBCol, MDBRow } from 'mdb-vue-ui-kit';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import MovieListItem from './MoviesListItem.vue';
 
 export default {
@@ -38,12 +38,17 @@ export default {
     MovieListItem
   },
   computed: {
+    ...mapGetters('movies', ['isSearch']),
     isExist() {
       return Object.keys(this.list).length;
+    },
+    listTitle() {
+      return this.isSearch ? 'Search results' : 'IMDB Top 250';
     }
   },
   methods: {
     ...mapActions('movies', ['removeMovie']),
+    ...mapActions(['showNotify']),
     onMouseOver(poster) {
       this.$emit('changePoster', poster);
     },
@@ -53,6 +58,10 @@ export default {
       const isConfirmed = confirm(`Do you want to delete ${title}?`);
       if (isConfirmed) {
         this.removeMovie(id);
+        this.showNotify({
+          msg: 'Movie deleted!',
+          type: 'success',
+        });
       }
     }
   }

@@ -2,7 +2,7 @@ import IDs from '@/store/mock/imdb_top250';
 import axios from '@/plugins/axios';
 import mutations from '../mutations';
 
-const { MOVIES, CURRENT_PAGE, REMOVE_MOVIE } = mutations;
+const { MOVIES, CURRENT_PAGE, REMOVE_MOVIE, TOGGLE_SEARCH } = mutations;
 
 function serializeResponse(movies) {
   return movies.reduce((acc, movie) => {
@@ -17,7 +17,8 @@ const moviesStore = {
     top250IDs: IDs,
     moviesPerPage: 12,
     currentPage: 1,
-    movies: {}
+    movies: {},
+    isSearch: false
   },
   getters: {
     sliceIDs: ({ top250IDs }) => (from, to) => top250IDs.slice(from, to),
@@ -28,6 +29,7 @@ const moviesStore = {
       top250IDs,
       moviesPerPage
     }) => Math.floor(Object.keys(top250IDs).length / moviesPerPage),
+    isSearch: ({ isSearch }) => isSearch,
   },
   mutations: {
     [MOVIES](state, value) {
@@ -38,6 +40,9 @@ const moviesStore = {
     },
     [REMOVE_MOVIE](state, index) {
       state.top250IDs.splice(index, 1);
+    },
+    [TOGGLE_SEARCH](state, bool) {
+      state.isSearch = bool;
     }
   },
   actions: {
@@ -76,6 +81,30 @@ const moviesStore = {
         commit(REMOVE_MOVIE, index);
         dispatch('fetchMovies');
       }
+    },
+    async searchMovie({ commit, dispatch }, query) {
+      try {
+        dispatch('toggleLoader', true, { root: true });
+
+        const response = await axios.get(`/?s=${query}`);
+
+        if (response.Error) {
+          throw Error(response.Error);
+        }
+
+        const movies = serializeResponse(response.Search);
+        commit(MOVIES, movies);
+      } catch (err) {
+        console.log(err.message);
+        dispatch('toggleSearchStatus', false);
+        dispatch('fetchMovies');
+        dispatch('showNotify', { msg: err.message, type: 'error' }, { root: true });
+      } finally {
+        dispatch('toggleLoader', false, { root: true });
+      }
+    },
+    toggleSearchStatus({ commit }, bool) {
+      commit('TOGGLE_SEARCH', bool);
     }
   }
 };

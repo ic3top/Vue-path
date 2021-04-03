@@ -1,6 +1,7 @@
 import 'mdb-vue-ui-kit/css/mdb.min.css';
 import { createApp } from 'vue';
 import { createWebHistory, createRouter } from 'vue-router';
+import Toaster from '@meforma/vue-toaster';
 import App from './App.vue';
 import store from './store';
 
@@ -15,4 +16,10 @@ const router = createRouter({
   ]
 });
 
-createApp(App).use(store).use(router).mount('#app');
+createApp(App)
+  .use(store)
+  .use(router)
+  .use(Toaster, {
+    position: 'top-right'
+  })
+  .mount('#app');
