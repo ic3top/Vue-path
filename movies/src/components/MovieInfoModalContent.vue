@@ -121,10 +121,10 @@ export default {
   font-size: 1.25rem;
   font-weight: 300;
 }
->>> .vue-star-rating {
+::v-deep(.vue-star-rating)  {
   align-items: flex-end;
 }
->>> .vue-star-rating-rating-text {
+::v-deep(.vue-star-rating-rating-text) {
   line-height: 20px;
 }
 </style>

@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style scoped>
->>> .Page {
+::v-deep(.Page) {
   font-size: 22px;
   color: #fff;
   margin: 0 6px;
@@ -56,16 +56,16 @@ export default {
   padding: 0 10px;
   border: 1px;
 }
->>> .Page:hover {
+::v-deep(.Page:hover)  {
   background-color: rgba(0, 0, 0, .3)!important;
 }
->>> .Pagination {
+::v-deep(.Pagination) {
   background-color: rgba(255, 255, 255, .2);
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #333;
 }
->>> .Control {
+::v-deep(.Control) {
   width: 24px;
   height: 24px;
 }
