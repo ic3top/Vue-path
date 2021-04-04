@@ -17,6 +17,4 @@ const store = createStore({
   },
 });
 
-store.dispatch('initMoviesStore');
-
 export default store;

@@ -7,7 +7,7 @@
         <span class="text-light">{{ movie.Year }}</span>
       </div>
       <div class="movie-item-controls d-grid gap-2">
-        <MDBBtn color="dark" rounded size="md">Edit</MDBBtn>
+        <MDBBtn color="dark" rounded size="md" @click="emitInfoEvent">Info</MDBBtn>
         <MDBBtn color="dark" rounded size="sm" @click="emitRemoveItem">Remove</MDBBtn>
       </div>
     </div>
@@ -28,6 +28,7 @@ export default {
       required: true
     }
   },
+  emits: ['showModal', 'removeItem'],
   computed: {
     posterBg() {
       return {
@@ -38,6 +39,9 @@ export default {
   methods: {
     emitRemoveItem() {
       this.$emit('removeItem', { id: this.movie.imdbID, title: this.movie.Title });
+    },
+    emitInfoEvent() {
+      this.$emit('showModal', this.movie.imdbID);
     }
   }
 };
@@ -51,7 +55,7 @@ export default {
   overflow: hidden;
   transition: all .2s ease;
   height: 450px;
-
+  text-align: center;
 }
 .movie-item:hover {
   transform: scale(1.04);

@@ -65,7 +65,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
-  text-align: center;
   min-height: 100vh;
 }
 </style>
