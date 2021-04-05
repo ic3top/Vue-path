@@ -2,7 +2,7 @@ import IDs from '@/store/mock/imdb_top250';
 import axios from '@/plugins/axios';
 import mutations from '../mutations';
 
-const { MOVIES, CURRENT_PAGE, REMOVE_MOVIE, TOGGLE_SEARCH } = mutations;
+const { MOVIES, CURRENT_PAGE, REMOVE_MOVIE, TOGGLE_SEARCH, REMOVE_MOVIE_INSEARCH } = mutations;
 
 function serializeResponse(movies) {
   return movies.reduce((acc, movie) => {
@@ -43,6 +43,9 @@ const moviesStore = {
     },
     [TOGGLE_SEARCH](state, bool) {
       state.isSearch = bool;
+    },
+    [REMOVE_MOVIE_INSEARCH](state, id) {
+      delete state.movies[id];
     }
   },
   actions: {
@@ -69,11 +72,24 @@ const moviesStore = {
       dispatch('fetchMovies');
     },
     removeMovie({ commit, dispatch, state }, id) {
+      if (state.isSearch) {
+        if (state.movies[id]) {
+          commit(REMOVE_MOVIE_INSEARCH, id);
+          dispatch('showNotify', { msg: 'Movie deleted', type: 'success' }, { root: true });
+          return;
+        }
+        dispatch('showNotify', { msg: 'FATAL: Movie wasn`t found', type: 'error' }, { root: true });
+        return;
+      }
+
       const index = state.top250IDs.findIndex((item) => item === id);
 
       if (index !== -1) {
         commit(REMOVE_MOVIE, index);
         dispatch('fetchMovies');
+        dispatch('showNotify', { msg: 'Movie deleted', type: 'success' }, { root: true });
+      } else {
+        dispatch('showNotify', { msg: 'FATAL: Movie wasn`t found', type: 'error' }, { root: true });
       }
     },
     async searchMovie({ commit, dispatch }, query) {
@@ -81,7 +97,6 @@ const moviesStore = {
         dispatch('toggleLoader', true, { root: true });
 
         const response = await axios.get(`/?s=${query}`);
-
         if (response.Error) {
           throw Error(response.Error);
         }
@@ -89,7 +104,6 @@ const moviesStore = {
         const movies = serializeResponse(response.Search);
         commit(MOVIES, movies);
       } catch (err) {
-        console.log(err.message);
         dispatch('toggleSearchStatus', false);
         dispatch('fetchMovies');
         dispatch('showNotify', { msg: err.message, type: 'error' }, { root: true });

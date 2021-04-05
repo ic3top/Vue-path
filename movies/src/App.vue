@@ -4,11 +4,13 @@
   <Header></Header>
   <Notifications></Notifications>
   <MoviesList :list="moviesList" @changePoster="onChangePoster"></MoviesList>
-  <MoviesPagination :current-page="currentPage"
+  <MoviesPagination v-if="!isSearch"
+                    :current-page="currentPage"
                     :per-page="moviesPerPage"
                     :total="moviesTotalAmount"
                     @pageChanged="onPageChanged"
   ></MoviesPagination>
+  <Footer></Footer>
 </template>
 
 <script>
@@ -19,6 +21,7 @@ import PosterBG from './components/PosterBG.vue';
 import MoviesPagination from './components/MoviesPagination.vue';
 import Loader from './components/Loader.vue';
 import Notifications from './components/Notifications.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   name: 'App',
@@ -28,7 +31,8 @@ export default {
     PosterBG,
     MoviesPagination,
     Loader,
-    Notifications
+    Notifications,
+    Footer
   },
   data() {
     return {
@@ -36,7 +40,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('movies', ['moviesList', 'currentPage', 'moviesPerPage', 'moviesTotalAmount'])
+    ...mapGetters('movies', ['moviesList', 'currentPage', 'moviesPerPage', 'moviesTotalAmount', 'isSearch'])
   },
   watch: {
     '$route.query': {

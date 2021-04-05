@@ -32,7 +32,9 @@ export default {
   computed: {
     posterBg() {
       return {
-        'background-image': `url(${this.movie.Poster})`
+        'background-image': `url(${this.movie.Poster === 'N/A'
+          ? 'https://assets.xtechcommerce.com/uploads/images/medium/d95787754e4f45b95d8f7b79d9835405.jpg'
+          : this.movie.Poster})`
       };
     }
   },

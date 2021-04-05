@@ -18,18 +18,40 @@
     <MDBModal
       id="movieInfoModal"
       v-model="movieInfoModal"
-      labelledby="exampleModalLabel"
-      tabindex="-1"
+      labelledby="movieInfoModal"
       size="xl"
+      tabindex="-1"
     >
       <MDBModalHeader>
-        <MDBModalTitle id="exampleModalLabel">{{ selectedMovie.Title }}</MDBModalTitle>
+        <MDBModalTitle id="movieInfoTitle">{{ movieInfo.Title }}</MDBModalTitle>
       </MDBModalHeader>
       <MDBModalBody>
-        <movie-info-modal-content :movie="selectedMovie"></movie-info-modal-content>
+        <movie-info-modal-content :movie="movieInfo"></movie-info-modal-content>
       </MDBModalBody>
       <MDBModalFooter>
         <MDBBtn color="secondary" @click="movieInfoModal = false">Close</MDBBtn>
+      </MDBModalFooter>
+    </MDBModal>
+
+    <MDBModal
+      id="confirmationWindow"
+      v-model="confirmationWindow"
+      labelledby="confirmationWindow"
+      tabindex="-1"
+    >
+      <MDBModalHeader>
+        <MDBModalTitle id="confirmationMessage">Confirmation window</MDBModalTitle>
+      </MDBModalHeader>
+      <MDBModalBody>
+        Movie '{{ movieTitleToRemove }}' will be deleted, are you sure?
+      </MDBModalBody>
+      <MDBModalFooter>
+        <MDBBtn color="secondary" @click="confirmationWindow = false">Close</MDBBtn>
+        <MDBBtn color="primary"
+                @click="confirmationAlert">
+          Delete
+          <MDBIcon icon="trash" iconStyle="fas"/>
+        </MDBBtn>
       </MDBModalFooter>
     </MDBModal>
   </MDBContainer>
@@ -38,17 +60,19 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import {
-  MDBModal,
-  MDBModalHeader,
-  MDBModalTitle,
-  MDBModalBody,
-  MDBModalFooter,
   MDBBtn,
   MDBCol,
   MDBContainer,
+  MDBIcon,
+  MDBModal,
+  MDBModalBody,
+  MDBModalFooter,
+  MDBModalHeader,
+  MDBModalTitle,
   MDBRow
 } from 'mdb-vue-ui-kit';
 import { ref } from 'vue';
+import axios from '@/plugins/axios';
 import MovieListItem from './MoviesListItem.vue';
 import MovieInfoModalContent from './MovieInfoModalContent.vue';
 
@@ -63,8 +87,9 @@ export default {
   emits: ['changePoster'],
   data() {
     return {
-      movieInfoModal: false,
-      selectedMovieId: ''
+      movieInfo: '',
+      movieTitleToRemove: '',
+      movieIdToRemove: ''
     };
   },
   components: {
@@ -78,13 +103,15 @@ export default {
     MDBModalTitle,
     MDBModalBody,
     MDBModalFooter,
-    MovieInfoModalContent
+    MovieInfoModalContent,
+    MDBIcon
   },
   setup() {
-    const exampleModal = ref(false);
-
+    const movieInfoModal = ref(false);
+    const confirmationWindow = ref(false);
     return {
-      exampleModal,
+      movieInfoModal,
+      confirmationWindow
     };
   },
   computed: {
@@ -94,31 +121,27 @@ export default {
     },
     listTitle() {
       return this.isSearch ? 'Search results' : 'IMDB Top 250';
-    },
-    selectedMovie() {
-      return this.selectedMovieId ? this.list[this.selectedMovieId] : null;
     }
   },
   methods: {
     ...mapActions('movies', ['removeMovie']),
-    ...mapActions(['showNotify']),
+    ...mapActions(['showNotify', 'toggleLoader']),
     onMouseOver(poster) {
       this.$emit('changePoster', poster);
     },
     onRemoveItem({ id, title }) {
-      // TODO: custom confirmation window
-      // eslint-disable-next-line no-restricted-globals
-      const isConfirmed = confirm(`Do you want to delete ${title}?`);
-      if (isConfirmed) {
-        this.removeMovie(id);
-        this.showNotify({
-          msg: 'Movie deleted!',
-          type: 'success',
-        });
-      }
+      this.movieIdToRemove = id;
+      this.movieTitleToRemove = title;
+      this.confirmationWindow = true;
     },
-    onShowModal(id) {
-      this.selectedMovieId = id;
+    confirmationAlert() {
+      this.confirmationWindow = false;
+      this.removeMovie(this.movieIdToRemove);
+    },
+    async onShowModal(id) {
+      this.toggleLoader(true);
+      this.movieInfo = await axios.get(`/?i=${id}`);
+      this.toggleLoader(false);
       this.movieInfoModal = true;
     }
   }
@@ -127,9 +150,18 @@ export default {
 
 <style scoped>
 .list-title {
-  font-size: 50px;
+  font-size: 40px;
   margin-bottom: 30px;
+
+  letter-spacing:0.1em;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: white;
+  text-shadow:
+    4px 4px #ff1f8f,
+    5px 5px #000000;
 }
+
 .modal-header {
   display: flex;
   justify-content: space-between;

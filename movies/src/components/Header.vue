@@ -1,23 +1,21 @@
 <template>
-    <MDBNavbar bg="dark" container light>
-      <MDBContainer class="d-flex justify-content-between align-items-center">
-        <MDBNavbarBrand href="#" class="text-light fs-3">Movies-App</MDBNavbarBrand>
-        <form class="d-flex input-group w-auto">
-          <input
-            aria-label="Search"
-            class="form-control"
-            placeholder="Type query"
-            type="search"
-            v-model="searchValue"
-          />
-          <MDBBtn outline="primary" @click="onSearch"> Search </MDBBtn>
-        </form>
-      </MDBContainer>
-    </MDBNavbar>
+  <MDBNavbar bg="dark" container>
+    <MDBNavbarBrand class="logo" href="/?page=1">Movies-App</MDBNavbarBrand>
+    <form class="d-flex input-group w-auto" @submit="onSearch">
+      <input
+        type="search"
+        class="form-control"
+        placeholder="Type query"
+        aria-label="Search"
+        v-model="searchValue"
+      />
+      <MDBBtn outline="white" @click="onSearch"> Search </MDBBtn>
+    </form>
+  </MDBNavbar>
 </template>
 
 <script>
-import { MDBBtn, MDBContainer, MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
+import { MDBBtn, MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
 import { mapActions } from 'vuex';
 
 export default {
@@ -31,14 +29,14 @@ export default {
     MDBBtn,
     MDBNavbar,
     MDBNavbarBrand,
-    MDBContainer
   },
   watch: {
     searchValue: 'onEmptyQuery'
   },
   methods: {
     ...mapActions('movies', ['searchMovie', 'fetchMovies', 'toggleSearchStatus']),
-    onSearch() {
+    onSearch(event) {
+      event.preventDefault();
       this.searchMovie(this.searchValue);
       this.toggleSearchStatus(true);
     },
@@ -53,5 +51,8 @@ export default {
 </script>
 
 <style scoped>
-
+.logo {
+  font-size: 24px;
+  text-shadow: 1px 1px 1px #3F7FBF;
+}
 </style>

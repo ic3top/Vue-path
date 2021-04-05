@@ -10,45 +10,91 @@
         <MDBCol sm="8">
           <h3>{{ movie.Title }}</h3>
           <star-rating
+            v-if="movie.imdbRating && movie.imdbRating !== 'N/A'"
             :increment="0.1"
             :max-rating="10"
             :rating="Number(movie.imdbRating)"
             :read-only="true"
             :star-size="20"
           ></star-rating>
-          <p class="movie-description">{{ movie.Plot }}</p>
+          <div  class="movie-description mt-3">
+            <p v-if="plotOfTheMovieExist">
+              {{ movie.Plot }}
+            </p>
+            <p v-else>
+              <MDBIcon icon="info-circle" iconStyle="fas" />
+              Unfortunately, we could not find the plot of the film.
+            </p>
+          </div>
           <div class="mt-3 mb-4">
-            <MDBBadge class="mr-2" color="success">{{ movie.Year }}</MDBBadge>
+            <MDBBadge class="mr-2" color="success">{{ ReleasedDate }}</MDBBadge>
             <MDBBadge class="mr-2" color="success">{{ movie.Runtime }}</MDBBadge>
             <MDBBadge class="mr-2" color="success">{{ movie.Genre }}</MDBBadge>
             <MDBBadge class="mr-2" color="success">{{ movie.Language }}</MDBBadge>
           </div>
-          <MDBTable sm>
+          <MDBTable hover sm>
             <tbody>
-              <tr>
-                <th>Production</th>
-                <td>{{ movie.Production }}</td>
-              </tr>
-              <tr>
-                <th>Country</th>
-                <td>{{ movie.Country }}</td>
-              </tr>
-              <tr>
-                <th>Director</th>
-                <td>{{ movie.Director }}</td>
-              </tr>
-              <tr>
-                <th>Writer</th>
-                <td>{{ movie.Writer }}</td>
-              </tr>
-              <tr>
-                <th>Actors</th>
-                <td>{{ movie.Actors }}</td>
-              </tr>
-              <tr>
-                <th>Awards</th>
-                <td>{{ movie.Awards }}</td>
-              </tr>
+            <tr>
+              <th scope="row">Production</th>
+              <td>{{
+                  movie.Production === 'N/A' ?
+                    'No results were found.' :
+                    movie.Production
+                }}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Country</th>
+              <td>{{
+                  movie.Country === 'N/A' ?
+                    'No results were found.' :
+                    movie.Country
+                }}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Director</th>
+              <td>{{
+                  movie.Director === 'N/A' ?
+                    'No results were found.' :
+                    movie.Director
+                }}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Writer</th>
+              <td>{{
+                  movie.Writer === 'N/A' ?
+                    'No results were found.' :
+                    movie.Writer
+                }}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Actors</th>
+              <td>{{
+                  movie.Actors === 'N/A' ?
+                    'No results were found.' :
+                    movie.Actors
+                }}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Awards</th>
+              <td>{{
+                  movie.Awards === 'N/A' ?
+                    'No results were found.' :
+                    movie.Awards
+                }}
+              </td>
+            </tr>
+            <tr v-if="movie.BoxOffice && movie.BoxOffice !== 'N/A'">
+              <th scope="row">Box office</th>
+              <td class="text-warning">
+                {{ movie.BoxOffice }}
+                <MDBIcon icon="money-bill-wave" iconStyle="fas"/>
+              </td>
+            </tr>
             </tbody>
           </MDBTable>
         </MDBCol>
@@ -58,7 +104,7 @@
 </template>
 
 <script>
-import { MDBBadge, MDBCol, MDBRow, MDBTable } from 'mdb-vue-ui-kit';
+import { MDBBadge, MDBCol, MDBIcon, MDBRow, MDBTable } from 'mdb-vue-ui-kit';
 import StarRating from 'vue-star-rating';
 
 export default {
@@ -70,16 +116,22 @@ export default {
     }
   },
   data: () => ({
-    defaultPosterBg: 'linear-gradient(45deg,rgb(0, 3, 38) 0%,rgb(82, 15, 117) 100%)'
+    defaultPosterBg: 'https://assets.xtechcommerce.com/uploads/images/medium/d95787754e4f45b95d8f7b79d9835405.jpg'
   }),
   computed: {
     posterStyle() {
       return {
-        'background-image': this.posterBg
+        'background-image': `url(${this.posterBg}`
       };
     },
     posterBg() {
-      return this.movie.Poster ? `url(${this.movie.Poster})` : this.defaultPosterBg;
+      return this.movie.Poster === 'N/A' ? this.defaultPosterBg : this.movie.Poster;
+    },
+    plotOfTheMovieExist() {
+      return Boolean(this.movie.Plot && this.movie.Plot !== 'N/A');
+    },
+    ReleasedDate() {
+      return this.movie.Released === 'N/A' ? this.movie.Year : this.movie.Released;
     }
   },
   components: {
@@ -87,7 +139,8 @@ export default {
     MDBCol,
     MDBTable,
     MDBBadge,
-    StarRating
+    StarRating,
+    MDBIcon
   }
 };
 </script>
@@ -121,9 +174,11 @@ export default {
   font-size: 1.25rem;
   font-weight: 300;
 }
-::v-deep(.vue-star-rating)  {
+
+::v-deep(.vue-star-rating) {
   align-items: flex-end;
 }
+
 ::v-deep(.vue-star-rating-rating-text) {
   line-height: 20px;
 }
