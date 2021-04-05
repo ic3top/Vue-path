@@ -37,6 +37,10 @@ This is a Movies-app which allows searching for whatever movie you want. Also, i
 * Pagination
 * General-info window with additional information taken from API
 
+## TODO list:
+* Fix bug with route and pagination
+* Fix footer
+
 
 ## Status
-Project is: _finished_
+Project is: _in-progress_
