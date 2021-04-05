@@ -24,7 +24,7 @@ Also it has quite enough features to show:)
 * element-plus: 1.0.2-beta.36 (UI framework)
 
 ## Setup
-[DEMO](https://ic3top.github.io/Vue-path/budget-app/dist/)
+[DEMO](http://vue-path-repo.site/budget-app/dist/index.html)
 
 ## Features
 List of features ready and TODOs for future development

@@ -8,8 +8,14 @@
 * [Features](#features)
 * [Status](#status)
 
+
 ## General info
 This is a Movies-app which allows searching for whatever movie you want. Also, it has its own 250 top movies, provides you with general info about each and a lot more features!   
+
+
+## Screenshots
+![Example screenshot](./screenshots/movies.png)
+
 
 ## Main technologies/dependencies
 * vue: 3.0.0,
@@ -18,8 +24,10 @@ This is a Movies-app which allows searching for whatever movie you want. Also, i
 * vue-router: 4.0.5 
 * mdb-vue-ui-kit: 1.0.0-beta1 (Bootstrap still doesn't support Vue 3)
 
+
 ## Setup
-[DEMO](https://ic3top.github.io/Vue-path/movies/dist/)
+[DEMO](http://vue-path-repo.site/movies/dist/)
+
 
 ## Features
 ##### List of features ready:
@@ -30,7 +38,5 @@ This is a Movies-app which allows searching for whatever movie you want. Also, i
 * General-info window with additional information taken from API
 
 
-
 ## Status
 Project is: _finished_
-

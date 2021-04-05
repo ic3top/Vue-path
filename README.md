@@ -3,4 +3,5 @@
 
 ## Projects` DEMOs
 :wave:Hey there, to see the details of the project, you can go to the appropriate folder.
-1. [Budget-app](https://ic3top.github.io/Vue-path/budget-app/dist/)
+1. [Budget-app](http://vue-path-repo.site/budget-app/dist/index.html)
+2. [Movies-app](http://vue-path-repo.site/movies/dist/)
