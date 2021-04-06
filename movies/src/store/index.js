@@ -4,12 +4,6 @@ import loader from './modules/loader';
 import notification from './modules/notification';
 
 const store = createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
     movies,
     loader,

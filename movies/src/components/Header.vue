@@ -1,6 +1,6 @@
 <template>
   <MDBNavbar bg="dark" container>
-    <MDBNavbarBrand class="logo" href="/?page=1">Movies-App</MDBNavbarBrand>
+    <MDBNavbarBrand class="logo" href="/movies/dist/">Movies-App</MDBNavbarBrand>
     <form class="d-flex input-group w-auto" @submit="onSearch">
       <input
         type="search"

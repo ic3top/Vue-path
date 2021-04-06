@@ -11,13 +11,12 @@
 </template>
 
 <script>
-import { MDBBtn, MDBFooter, MDBIcon } from 'mdb-vue-ui-kit';
+import { MDBFooter, MDBIcon } from 'mdb-vue-ui-kit';
 
 export default {
   name: 'Footer',
   components: {
     MDBFooter,
-    MDBBtn,
     MDBIcon
   }
 };
