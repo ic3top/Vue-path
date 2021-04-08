@@ -3,7 +3,7 @@
     <h3 class="list-title text-light lh-lg">{{ listTitle }}</h3>
     <MDBRow>
       <template v-if="isExist">
-        <MDBCol v-for="(movie, key) in list" :key="key" col="3">
+        <MDBCol v-for="(movie, key) in list" :key="key" sm="6" md="4" xl="3">
           <MovieListItem :movie="movie"
                          @mouseover="onMouseOver(movie.Poster)"
                          @removeItem="onRemoveItem"
