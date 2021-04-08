@@ -36,11 +36,8 @@ This is a Movies-app which allows searching for whatever movie you want. Also, i
 * Top 250 movies
 * Pagination
 * General-info window with additional information taken from API
-* Cool background
-
-## TODO list:
-* Pin footer to the bottom
+* Cool changing background
 
 
 ## Status
-Project is: _almost-finished_
+Project is: _finished_
