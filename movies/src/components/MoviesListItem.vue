@@ -1,7 +1,9 @@
 <template>
   <div class="movie-item mb-3 hover-shadow">
     <div class="movie-item-poster" :style="posterBg"></div>
-    <div class="movie-info-wrap d-flex flex-column justify-content-between">
+    <div  @dblclick="emitInfoEvent"
+          class="movie-info-wrap d-flex flex-column justify-content-between"
+    >
       <div class="movie-item-info">
         <h3 class="text-light fs-lg-3"> {{ movie.Title }} </h3>
         <span class="text-light">{{ movie.Year }}</span>

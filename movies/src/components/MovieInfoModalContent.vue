@@ -182,4 +182,10 @@ export default {
 ::v-deep(.vue-star-rating-rating-text) {
   line-height: 20px;
 }
+
+@media screen and (max-width: 576px) {
+  .movie-info-content {
+    padding: 0;
+  }
+}
 </style>

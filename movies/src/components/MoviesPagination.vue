@@ -3,8 +3,10 @@
     <v-pagination
       v-model="currentPageModel"
       :pages="total"
-      :range-size="1"
-      active-color="rgba(0, 0, 0, .5)"
+      :range-size="0"
+      active-color="rgba(0, 0, 0, .7)"
+      :hideFirstButton="hideButtons"
+      :hideLastButton="hideButtons"
     />
   </nav>
 </template>
@@ -41,14 +43,17 @@ export default {
       set(numberOfPage) {
         this.$emit('pageChanged', numberOfPage);
       }
+    },
+    hideButtons() {
+      return window.innerWidth < 576;
     }
   }
 };
 </script>
 
-<style scoped>
-::v-deep(.Page) {
-  font-size: 22px;
+<style>
+.Page {
+  font-size: max(3vh, 1vw);
   color: #fff;
   margin: 0 6px;
   width: auto;
@@ -56,17 +61,24 @@ export default {
   padding: 0 10px;
   border: 1px;
 }
-::v-deep(.Page:hover)  {
+.Page:hover  {
   background-color: rgba(0, 0, 0, .3)!important;
+  border: none;
 }
-::v-deep(.Pagination) {
+.Pagination {
   background-color: rgba(255, 255, 255, .2);
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #333;
 }
-::v-deep(.Control) {
+.Control {
   width: 24px;
   height: 24px;
+}
+
+@media screen and (max-width: 576px) {
+  .p-4 {
+    padding: 1vw!important;
+  }
 }
 </style>
