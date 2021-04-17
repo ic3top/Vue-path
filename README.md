@@ -6,4 +6,4 @@
 1. [Budget-app](http://vue-path-repo.site/budget-app/dist/index.html)
 2. [Movies-app](http://vue-path-repo.site/movies/dist/)
 3. [Todo-app](https://ic3top.github.io/devChallenges/todo-app/dist/)
-4. [Random quote-app](https://ic3top.github.io/devChallenges/quote-generator/dist/index.html)
+4. [Random quote-app](https://ic3top.github.io/devChallenges/quote-generator/dist/)
