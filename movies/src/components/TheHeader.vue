@@ -16,7 +16,7 @@
 
 <script>
 import { MDBBtn, MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'Header',
@@ -33,6 +33,9 @@ export default {
   watch: {
     searchValue: 'onEmptyQuery'
   },
+  computed: {
+    ...mapGetters('movies', ['isSearch'])
+  },
   methods: {
     ...mapActions('movies', ['searchMovie', 'fetchMovies', 'toggleSearchStatus']),
     onSearch(event) {
@@ -41,7 +44,8 @@ export default {
       this.toggleSearchStatus(true);
     },
     onEmptyQuery(query) {
-      if (!query) {
+      if (!query && this.isSearch) {
+        console.log(this.isSearch);
         this.fetchMovies();
         this.toggleSearchStatus(false);
       }

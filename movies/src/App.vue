@@ -32,7 +32,7 @@ export default {
     MoviesPagination,
     Loader,
     Notifications,
-    Footer
+    Footer,
   },
   data() {
     return {
@@ -70,8 +70,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: space-between;*/
 }
 </style>

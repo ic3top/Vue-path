@@ -47,6 +47,7 @@ export default {
         return this.currentPage;
       },
       set(numberOfPage) {
+        window.scrollTo(0, 0);
         this.$emit('pageChanged', numberOfPage);
       }
     },
@@ -80,6 +81,9 @@ export default {
 .Control {
   width: 24px;
   height: 24px;
+}
+.Control-active {
+  fill: #1F66F1;
 }
 
 @media screen and (max-width: 576px) {
