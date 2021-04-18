@@ -1,9 +1,8 @@
 <template>
   <MDBFooter class="bg-dark text-light">
     <div class="text-center p-3 letter-spacing">
-      © 2021 Copyright:
-      <a href="https://github.com/ic3top">
-        ic3top
+      <a href="https://github.com/ic3top/Vue-path/tree/master/movies">
+        Source code
         <MDBIcon icon="github" iconStyle="fab"></MDBIcon>
       </a>
     </div>

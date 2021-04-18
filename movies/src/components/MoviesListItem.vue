@@ -85,4 +85,10 @@ export default {
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.5)
 }
+
+@media screen and (max-width: 576px) {
+  .movie-item {
+    height: 80vh;
+  }
+}
 </style>

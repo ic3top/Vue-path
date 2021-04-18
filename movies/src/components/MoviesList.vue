@@ -150,7 +150,7 @@ export default {
 
 <style scoped>
 .list-title {
-  font-size: max(5vw, 5vh);
+  font-size: max(3vw, 3vh);
   margin-bottom: 30px;
 
   letter-spacing:0.1em;

@@ -32,6 +32,12 @@ export default {
     }
   },
   emits: ['pageChanged'],
+  data() { return { windowWidth: window.innerWidth }; },
+  mounted() {
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth;
+    });
+  },
   components: {
     VPagination
   },
@@ -45,7 +51,7 @@ export default {
       }
     },
     hideButtons() {
-      return window.innerWidth < 576;
+      return this.windowWidth < 576;
     }
   }
 };
@@ -79,6 +85,10 @@ export default {
 @media screen and (max-width: 576px) {
   .p-4 {
     padding: 1vw!important;
+  }
+
+  .Pagination {
+    margin-bottom: 10px;
   }
 }
 </style>

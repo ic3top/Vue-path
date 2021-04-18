@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     backGround() {
-      return this.poster ? `url(${this.poster})` : this.defaultBackGround;
+      return (this.poster && window.innerWidth > 576) ? `url(${this.poster})` : this.defaultBackGround;
     },
     posterStyle() {
       return {

@@ -15,13 +15,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Header from './components/Header.vue';
+import Header from './components/TheHeader.vue';
 import MoviesList from './components/MoviesList.vue';
 import PosterBG from './components/PosterBG.vue';
 import MoviesPagination from './components/MoviesPagination.vue';
-import Loader from './components/Loader.vue';
+import Loader from './components/TheLoader.vue';
 import Notifications from './components/Notifications.vue';
-import Footer from './components/Footer.vue';
+import Footer from './components/TheFooter.vue';
 
 export default {
   name: 'App',
