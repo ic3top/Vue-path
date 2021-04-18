@@ -37,6 +37,7 @@ This is a Movies-app which allows searching for whatever movie you want. Also, i
 * Pagination
 * General-info window with additional information taken from API
 * Cool changing background
+* Fully adaptive
 
 
 ## Status
