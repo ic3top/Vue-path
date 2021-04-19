@@ -88,7 +88,13 @@ export default {
 
 @media screen and (max-width: 768px) {
   .movie-item {
-    height: 80vh;
+    height: 700px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .movie-item {
+    height: 500px;
   }
 }
 </style>

@@ -9,7 +9,7 @@
         aria-label="Search"
         v-model="searchValue"
       />
-      <MDBBtn outline="white" @click="onSearch"> Search </MDBBtn>
+      <MDBBtn class="text-white" @click="onSearch"> Search </MDBBtn>
     </form>
   </MDBNavbar>
 </template>
