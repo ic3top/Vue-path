@@ -1,7 +1,6 @@
 <template>
   <main v-if="!loading">
-    <data-title :flag="stats.countryInfo?.flag"
-                :text="currentLocation"
+    <data-title :text="currentLocation"
                 :dataDate="stats.updated">
     </data-title>
 
@@ -52,10 +51,20 @@ export default {
       return data;
     },
     getCountryData(selectedCountry) {
-      this.currentLocation = selectedCountry.country;
-      this.stats = selectedCountry;
+      if (selectedCountry) {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+        this.currentLocation = selectedCountry.country;
+        this.stats = selectedCountry;
+      }
     },
     async clearCountryData() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
       this.loading = true;
       this.currentLocation = 'Global';
       this.stats = await this.getCovidData();

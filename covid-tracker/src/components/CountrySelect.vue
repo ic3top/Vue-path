@@ -1,13 +1,16 @@
 <template>
-  <select
+  <div class="mt-8 flex items-center md:justify-center">
+    <span class="fas fa-search"></span>
+    <select
     @change="onChange"
     v-model="selected"
-    class="form-select mt-8 block w-full border p-3 rounded">
-    <option value="0" selected >Select Country</option>
+    class="form-select block border p-3 rounded ml-2">
+    <option value="0" selected>Select Country</option>
     <option v-for="country in countries" :value="country.country" :key="country.countryInfo._id">
       {{ country.country }}
     </option>
   </select>
+  </div>
 </template>
 
 <script>

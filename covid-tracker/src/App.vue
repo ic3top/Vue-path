@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100vh" class="flex justify-between flex-col">
+  <div class="min-h-screen flex justify-between flex-col">
     <the-header />
     <div class="container">
       <router-view />
