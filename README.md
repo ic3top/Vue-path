@@ -7,3 +7,4 @@
 2. [Movies-app](http://vue-path-repo.site/movies/dist/)
 3. [Todo-app](https://ic3top.github.io/devChallenges/todo-app/dist/)
 4. [Random quote-app](https://ic3top.github.io/devChallenges/quote-generator/dist/)
+5. [Country quiz](https://ic3top.github.io/devChallenges/country-quiz-app/dist/)
