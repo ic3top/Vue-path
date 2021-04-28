@@ -20,3 +20,14 @@ export default {
   },
 };
 </script>
+
+<style>
+::-webkit-scrollbar {
+  width: 7px;
+  background-color: #DBEAFE;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1E3A8A;
+}
+</style>

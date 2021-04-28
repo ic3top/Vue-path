@@ -1,11 +1,12 @@
 <template>
   <div class="text-center">
     <div class="flex justify-center items-center h-20">
-      <h2 class="text-3xl font-bold">{{ text }}</h2>
-      <span v-if="text === 'Global'" class="fas fa-globe text-2xl ml-1"></span>
+      <h2 class="text-3xl font-bold">Global</h2>
+      <span class="fas fa-globe text-2xl ml-1"></span>
     </div>
-    <div class="text-2xl mt-4 mb-10">
-      {{ timestamp }}
+    <div class="text-2xl mt-4 mb-5">
+      <p>{{ timestamp }}</p>
+      <p class="text-sm text-gray-500">(info for the last 24h)</p>
     </div>
   </div>
 </template>
@@ -16,10 +17,6 @@ import moment from 'moment';
 export default {
   name: 'DataTitle',
   props: {
-    text: {
-      type: String,
-      required: true,
-    },
     dataDate: {
       type: Number,
       required: true,
