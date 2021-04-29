@@ -1,7 +1,6 @@
 <template>
   <main v-if="!loading">
-    <data-title :dataDate="stats.updated">
-    </data-title>
+    <data-title :dataDate="stats.updated"></data-title>
 
     <data-boxes :stats="stats"></data-boxes>
 
@@ -11,8 +10,8 @@
               :title="item.countryData.country"
               :additional-data="item">
       </v-card>
-      <div class="h-40 flex items-center justify-center shadow-md hover:shadow-lg rounded border">
-        <button class="w-full h-full text-white bg-blue-100 text-blue-900 text-3xl"
+      <div class="h-40 flex items-center justify-center shadow-md hover:shadow-lg rounded border-2">
+        <button class="w-full h-full text-white bg-auto text-blue-900 text-3xl"
                 @click="showModalHandler">
           <span class="fas fa-plus"></span>
         </button>
@@ -77,7 +76,7 @@ export default {
         behavior: 'smooth',
       });
       this.cardsList = [];
-      localStorage.setItem('cardsList', []);
+      localStorage.removeItem('cardsList');
     },
     addCardHandler(data) {
       this.cardsList = this.cardsList.filter((countryObj) => countryObj.countryData.country
