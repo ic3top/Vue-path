@@ -6,7 +6,7 @@
     </div>
     <div class="text-2xl mt-4 mb-5">
       <p>{{ timestamp }}</p>
-      <p class="text-sm text-gray-500">(info for the last 24h)</p>
+      <p class="text-sm text-gray-500">(UTC time, yesterday)</p>
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     timestamp() {
-      return moment(this.dataDate).format('DD.MM.YYYY');
+      return moment(this.dataDate).subtract(1, 'days').format('DD.MM.YYYY');
     },
   },
 };
