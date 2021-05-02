@@ -4,7 +4,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#Main-technologies/dependencies)
-* [Setup](#setup)
+* [Demo](#Demo)
 * [Features](#features)
 * [Status](#status)
 
@@ -21,7 +21,7 @@ Also, I was using this API: [disease.sh](https://disease.sh/docs/#/);
 * tailwind v2.1.2
 * moment.js (formatting data)
 
-## Setup
+## Demo
 [DEMO](http://vue-path-repo.site/covid-tracker/dist/)
 
 
@@ -32,9 +32,6 @@ Also, I was using this API: [disease.sh](https://disease.sh/docs/#/);
 * All your chosen cards are saved into the localstorage  
 * Fully adaptive
 
-### TODOS
-* autocopmplete for countries filtering
-
 
 ## Status
-Project is: _in-progress_
+Project is: _Finished_

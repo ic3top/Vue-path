@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <button @click="clearCountryData"
+    <button @click="clearCountryData($event)"
             v-if="cardsList.length > 0"
             class="bg-blue-900 text-white rounded p-3 mt-10 focus:outline-none hover:bg-blue-600">
       Delete all <span class="fas fa-broom"></span>
@@ -34,9 +34,14 @@
               @close="showModal = false"
               @addCard="addCardHandler">
   </popup-form>
+
+  <confirm-popup></confirm-popup>
+  <Toast />
 </template>
 
 <script>
+import ConfirmPopup from 'primevue/confirmpopup';
+import Toast from 'primevue/toast';
 import DataTitle from '../components/DataTitle.vue';
 import DataBoxes from '../components/DataBoxes.vue';
 import PopupForm from '../components/PopupForm.vue';
@@ -49,6 +54,8 @@ export default {
     DataTitle,
     DataBoxes,
     VCard,
+    ConfirmPopup,
+    Toast,
   },
   data() {
     return {
@@ -58,6 +65,11 @@ export default {
       countries: [],
       cardsList: JSON.parse(localStorage.getItem('cardsList')) || [],
     };
+  },
+  async created() {
+    this.stats = await this.getCovidData();
+    this.countries = await this.getCountries();
+    this.loading = false;
   },
   methods: {
     async getCovidData() {
@@ -70,29 +82,36 @@ export default {
       const data = await res.json();
       return data;
     },
-    async clearCountryData() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
+    clearCountryData(event) {
+      this.$confirm.require({
+        target: event.currentTarget,
+        message: 'Are you sure you want to delete all cards?',
+        icon: 'pi pi-exclamation-triangle',
+        acceptClass: 'p-button-danger',
+        accept: () => {
+          this.$toast.add({
+            severity: 'success', summary: 'Success', detail: 'All cards were deleted', life: 3000,
+          });
+          this.cardsList = [];
+          localStorage.removeItem('cardsList');
+        },
+        reject: () => {
+        },
       });
-      this.cardsList = [];
-      localStorage.removeItem('cardsList');
     },
     addCardHandler(data) {
       this.cardsList = this.cardsList.filter((countryObj) => countryObj.countryData.country
         !== data.countryData.country);
       this.cardsList.push(data);
+      this.$toast.add({
+        severity: 'success', summary: 'Success', detail: `${data.countryData.country} added`, life: 2000,
+      });
       localStorage.setItem('cardsList', JSON.stringify(this.cardsList));
     },
     showModalHandler() {
       this.showModal = true;
       document.body.style.overflowY = 'hidden';
     },
-  },
-  async created() {
-    this.stats = await this.getCovidData();
-    this.countries = await this.getCountries();
-    this.loading = false;
   },
 };
 </script>

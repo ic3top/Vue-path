@@ -154,17 +154,3 @@ export default {
   }
 }
 </style>
-
-<style>
-.p-autocomplete-items {
-  @apply border bg-white;
-}
-
-.p-autocomplete-item {
-  @apply text-lg border-t p-1.5;
-}
-
-.p-highlight {
-  @apply bg-blue-200;
-}
-</style>
