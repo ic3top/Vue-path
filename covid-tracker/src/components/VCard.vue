@@ -1,6 +1,5 @@
 <template>
-  <div class="shadow-md relative bg-blue-100 py-10 px-4 rounded text-center transition-shadow
-                hover:shadow-lg">
+  <div class="v-card">
     <h2 class="text-3xl text-blue-900 mb-4 font-bold">{{ title }}</h2>
     <div class="flex justify-between items-center">
       <h2 class="text-blue-700 text-2xl font-bold">Total cases</h2>
@@ -14,7 +13,7 @@
       Additional info:
     </h3>
     <div class="overflow-y-auto h-44 scroll pr-3">
-      <div class="py-3 text-left flex justify-between items-center border-b border-gray-100"
+      <div class="v-card-additional"
            v-for="property in additionalData.chosenValues"
            :key="property">
         <span class="text-xl font-bold">{{ capitalize(property) }}:</span>
@@ -51,6 +50,15 @@ export default {
 </script>
 
 <style scoped>
+.v-card {
+  @apply shadow-md relative bg-blue-100 py-10 px-4 rounded text-center transition-shadow
+  hover:shadow-lg;
+}
+
+.v-card-additional {
+  @apply py-3 text-left flex justify-between items-center border-b border-gray-100;
+}
+
 .scroll::-webkit-scrollbar {
   width: 4px;
 }

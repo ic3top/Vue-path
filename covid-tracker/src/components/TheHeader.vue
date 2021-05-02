@@ -4,7 +4,8 @@
     <p>API: <a
       href="https://disease.sh/docs/#/"
       class="text-blue-200"
-      target="_blank">disease.sh</a>
+      target="_blank"> disease.sh
+      </a>
     </p>
   </header>
 </template>
