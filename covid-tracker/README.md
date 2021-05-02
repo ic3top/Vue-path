@@ -31,7 +31,8 @@ Also, I was using this API: [disease.sh](https://disease.sh/docs/#/);
 * Choose certain country to see its statistic(total cases, test, etc...)
 * All your chosen cards are saved into the localstorage  
 * Fully adaptive
-
+### Todos
+* Implement routing
 
 ## Status
-Project is: _Finished_
+Project is: _in-progress_
