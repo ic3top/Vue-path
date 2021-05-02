@@ -9,19 +9,21 @@
             <span class="fas fa-times"></span>
           </button>
         </div>
-        <div class="bg-white rounded-b-md p-4 font-normal">
+        <div class="bg-white rounded-b-md p-4 font-normal border"
+             :class="{ 'border-red-300': !valid }"
+        >
           <form @submit.prevent="onFormSubmit"
-                class="py-4 flex flex-col w-full">
-            <input v-model="countryName"
-                   :class="{ 'border-red-300': !valid }"
-                   @input="valid = true"
-                   class="p-2 border"
-                   type="text"
-                   placeholder="Country name...">
+                class="py-4 flex flex-col w-full"
+          >
+            <AutoComplete
+              placeholder="Country name..."
+              v-model="countryName"
+              :suggestions="suggestions"
+              inputClass="w-full border p-3 text-lg"
+              @complete="searchCountry($event)"
+            />
             <hr>
-
             <h4 class="mt-4 text-gray-500">Additional information:</h4>
-
             <div v-for="item in allValues"
                  :key="item"
                  class="flex items-center mt-2 border p-2">
@@ -50,8 +52,13 @@
 </template>
 
 <script>
+import AutoComplete from 'primevue/autocomplete';
+
 export default {
   name: 'PopupForm',
+  components: {
+    AutoComplete,
+  },
   props: {
     showModal: {
       type: Boolean,
@@ -69,6 +76,7 @@ export default {
       allValues: ['population', 'recovered', 'tests', 'todayCases', 'active'],
       countryName: '',
       valid: true,
+      suggestions: [],
     };
   },
   methods: {
@@ -83,8 +91,6 @@ export default {
           this.resetData();
           return;
         }
-        this.valid = false;
-        return;
       }
       this.valid = false;
     },
@@ -97,6 +103,18 @@ export default {
       this.countryName = '';
       this.valid = true;
       document.body.style.overflowY = 'unset';
+    },
+    searchCountry(event) {
+      this.valid = true;
+      setTimeout(() => {
+        if (!event.query.trim().length) {
+          this.suggestions = [...this.countries.map(({ country }) => country)];
+        } else {
+          this.suggestions = this.countries
+            .map(({ country }) => country)
+            .filter((name) => name.toLowerCase().startsWith(event.query.toLowerCase()));
+        }
+      }, 100);
     },
   },
 };
@@ -134,5 +152,19 @@ export default {
   100% {
     transform: scale(1);
   }
+}
+</style>
+
+<style>
+.p-autocomplete-items {
+  @apply border bg-white;
+}
+
+.p-autocomplete-item {
+  @apply text-lg border-t p-1.5;
+}
+
+.p-highlight {
+  @apply bg-blue-200;
 }
 </style>
