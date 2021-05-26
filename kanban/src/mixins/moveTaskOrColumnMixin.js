@@ -17,26 +17,23 @@ export default {
   },
   methods: {
     ...mapMutations(['MOVE_TASK', 'MOVE_COLUMN']),
-    moveTaskOrColumn (e, toTasks, toColumnIndex, toTaskIndex) {
-      const type = e.dataTransfer.getData('type');
-      if (type === 'task') {
-        this.moveTask(e, toTasks, toTaskIndex);
+    moveTaskOrColumn (transferData) {
+      if (transferData.type === 'task') {
+        this.moveTask(transferData);
         return;
       }
-      this.moveColumn(e, toColumnIndex);
+      this.moveColumn(transferData);
     },
-    moveColumn (e, toColumnIndex) {
-      const fromColumnIndex = e.dataTransfer.getData('from-column-index');
-
+    moveColumn ({ fromColumnIndex }) {
       this.MOVE_COLUMN({
         fromColumnIndex,
-        toColumnIndex,
+        toColumnIndex: this.columnIndex,
       });
     },
-    moveTask (e, toTasks, toTaskIndex) {
-      const fromColumnIndex = e.dataTransfer.getData('from-column-index');
+    moveTask ({ fromColumnIndex, fromTaskIndex }) {
       const fromTasks = this.board.columns[fromColumnIndex].tasks;
-      const fromTaskIndex = e.dataTransfer.getData('from-task-index');
+      const toTasks = this.board.columns[this.columnIndex].tasks;
+      const toTaskIndex = this.taskIndex === undefined ? toTasks.length : this.taskIndex;
 
       this.MOVE_TASK({
         fromTasks,

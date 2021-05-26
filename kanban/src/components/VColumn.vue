@@ -1,60 +1,48 @@
 <template>
-  <div
-    class="column"
-    draggable="true"
-    @drop="moveTaskOrColumn($event, column.tasks, columnIndex)"
-    @dragover.prevent
-    @dragenter.prevent
-    @dragstart.self="pickupColumn($event, columnIndex)"
-  >
-    <h2 class="flex items-center mb-2 font-bold">
-      {{ column.name }}
-    </h2>
-    <ul class="list-none w-full">
-      <li>
-        <v-task
-          v-for="(task, taskIndex) in column.tasks"
-          :key="task.id"
-          :task="task"
-          :task-index="taskIndex"
-          :column="column"
-          :column-index="columnIndex"
-          :board="board"
-        ></v-task>
-      </li>
+  <v-drop @drop="moveTaskOrColumn">
+    <v-drag :transfer-data="{ type: 'column', fromColumnIndex: columnIndex }" class="column">
+      <h2 class="flex items-center mb-2 font-bold">
+        {{ column.name }}
+      </h2>
+      <div class="list-none w-full">
+          <v-task
+            v-for="(task, taskIndex) in column.tasks"
+            :key="task.id"
+            :task="task"
+            :task-index="taskIndex"
+            :column="column"
+            :column-index="columnIndex"
+            :board="board"
+          ></v-task>
 
-      <li class="w-full">
-        <input
-          type="text"
-          class="w-full p-2 bg-transparent"
-          placeholder="+ Enter new task"
-          @keyup.enter="createTask($event, column.tasks)"
-        >
-      </li>
-    </ul>
-  </div>
+          <input
+            type="text"
+            class="w-full p-2 bg-transparent"
+            placeholder="+ Enter new task"
+            @keyup.enter="createTask($event, column.tasks)"
+          >
+      </div>
+    </v-drag>
+  </v-drop>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
 import moveTaskOrColumnMixin from '../mixins/moveTaskOrColumnMixin';
+import VDrag from './VDrag.vue';
+import VDrop from './VDrop.vue';
 import VTask from './VTask.vue';
 
 export default {
   name: 'VColumn',
   components: {
     VTask,
+    VDrag,
+    VDrop,
   },
   mixins: [moveTaskOrColumnMixin],
   methods: {
     ...mapMutations(['CREATE_TASK']),
-    pickupColumn (e, fromColumnIndex) {
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.dropEffect = 'move';
-
-      e.dataTransfer.setData('from-column-index', fromColumnIndex);
-      e.dataTransfer.setData('type', 'column');
-    },
     createTask (e, tasks) {
       this.CREATE_TASK({
         tasks,

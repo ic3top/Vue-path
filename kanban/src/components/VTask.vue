@@ -1,28 +1,36 @@
 <template>
-    <div
+  <v-drop @drop="moveTaskOrColumn">
+    <v-drag
       class="task"
       :class="{ done: task.done }"
+      :transfer-data="{
+        type: 'task',
+        fromColumnIndex: columnIndex,
+        fromTaskIndex: taskIndex,
+      }"
       @click="goToTask(task)"
-      @dragstart="pickupTask($event, taskIndex, columnIndex)"
-      draggable="true"
-      @dragover.prevent
-      @dragenter.prevent
-      @drop.stop="moveTaskOrColumn($event, column.tasks, columnIndex, taskIndex)"
     >
       <h3 class="text-lg font-bold">{{ task.name }}</h3>
       <p class="mt-1 text-sm" v-if="task.description">
         {{ task.description }}
       </p>
-    </div>
+    </v-drag>
+  </v-drop>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
+import VDrag from './VDrag.vue';
+import VDrop from './VDrop.vue';
 import moveTaskOrColumnMixin from '../mixins/moveTaskOrColumnMixin';
 
 export default {
   name: 'VTask',
   mixins: [moveTaskOrColumnMixin],
+  components: {
+    VDrop,
+    VDrag,
+  },
   props: {
     task: {
       type: Object,
@@ -37,14 +45,6 @@ export default {
     ...mapMutations(['DELETE_TASK']),
     goToTask (task) {
       this.$router.push({ name: 'task', params: { id: task.id } });
-    },
-    pickupTask (e, taskIndex, columnIndex) {
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.dropEffect = 'move';
-
-      e.dataTransfer.setData('from-task-index', taskIndex);
-      e.dataTransfer.setData('from-column-index', columnIndex);
-      e.dataTransfer.setData('type', 'task');
     },
     deleteTask (e, tasks, taskIndex) {
       this.DELETE_TASK({ tasks, taskIndex });

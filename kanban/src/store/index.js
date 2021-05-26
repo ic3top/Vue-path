@@ -46,13 +46,15 @@ export default createStore({
     MOVE_TASK (state, {
       fromTasks, toTasks, fromTaskIndex, toTaskIndex,
     }) {
-      const [taskToMove] = fromTasks.splice(fromTaskIndex, 1);
+      const taskToMove = fromTasks.splice(fromTaskIndex, 1)[0];
       toTasks.splice(toTaskIndex, 0, taskToMove);
     },
     MOVE_COLUMN (state, { fromColumnIndex, toColumnIndex }) {
-      const columnList = state.board.columns;
-      const columnToMove = columnList.splice(fromColumnIndex, 1)[0];
-      columnList.splice(toColumnIndex, 0, columnToMove);
+      if (typeof fromColumnIndex === 'number') {
+        const columnList = state.board.columns;
+        const columnToMove = columnList.splice(fromColumnIndex, 1)[0];
+        columnList.splice(toColumnIndex, 0, columnToMove);
+      }
     },
     DELETE_TASK (state, {
       tasks, taskIndex,
