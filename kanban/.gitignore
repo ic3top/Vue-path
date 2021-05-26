@@ -5,6 +5,8 @@ node_modules
 .browserslistrc
 .editorconfig
 .eslintrc.js
+package-lock.json
+.idea
 
 # local env files
 .env.local
