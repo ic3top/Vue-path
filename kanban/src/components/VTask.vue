@@ -1,7 +1,7 @@
 <template>
   <v-drop @drop="moveTaskOrColumn">
     <v-drag
-      class="task"
+      class="task relative"
       :class="{ done: task.done }"
       :transfer-data="{
         type: 'task',
@@ -14,12 +14,14 @@
       <p class="mt-1 text-sm" v-if="task.description">
         {{ task.description }}
       </p>
+      <button class="delete-btn" @click.stop="deleteTask">
+        <font-awesome-icon icon="times" size="1x" />
+      </button>
     </v-drag>
   </v-drop>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
 import VDrag from './VDrag.vue';
 import VDrop from './VDrop.vue';
 import moveTaskOrColumnMixin from '../mixins/moveTaskOrColumnMixin';
@@ -42,12 +44,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['DELETE_TASK']),
     goToTask (task) {
       this.$router.push({ name: 'task', params: { id: task.id } });
     },
-    deleteTask (e, tasks, taskIndex) {
-      this.DELETE_TASK({ tasks, taskIndex });
+    deleteTask () {
+      this.$emit('delete-task', this.taskIndex);
     },
   },
 };
@@ -62,5 +63,13 @@ export default {
 
 .done {
   @apply bg-grey shadow-none line-through
+}
+
+.delete-btn {
+  @apply absolute top-1 right-2 hidden
+}
+
+.task:hover .delete-btn {
+  display: block;
 }
 </style>

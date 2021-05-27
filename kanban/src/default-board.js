@@ -8,8 +8,8 @@ export default {
       tasks: [
         {
           description: 'Some description about this task...',
-          name: 'first task',
-          id: 1,
+          name: 'My first task',
+          id: uuid(),
           userAssigned: null,
         },
         {
@@ -19,7 +19,7 @@ export default {
           userAssigned: null,
         },
         {
-          description: 'some description for your easy task',
+          description: '',
           name: 'and third',
           id: uuid(),
           userAssigned: null,
@@ -31,7 +31,7 @@ export default {
       tasks: [
         {
           description: '',
-          name: 'First task',
+          name: 'This one is in progress',
           id: uuid(),
           userAssigned: null,
         },
@@ -42,7 +42,7 @@ export default {
       tasks: [
         {
           description: '',
-          name: 'First task',
+          name: 'To create a `DONE` column',
           id: uuid(),
           userAssigned: null,
         },

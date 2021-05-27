@@ -13,6 +13,7 @@
             :column="column"
             :column-index="columnIndex"
             :board="board"
+            @delete-task="deleteTask"
           ></v-task>
 
           <input
@@ -42,13 +43,17 @@ export default {
   },
   mixins: [moveTaskOrColumnMixin],
   methods: {
-    ...mapMutations(['CREATE_TASK']),
+    ...mapMutations(['CREATE_TASK', 'DELETE_TASK']),
     createTask (e, tasks) {
+      if (!e.target.value) return;
       this.CREATE_TASK({
         tasks,
         name: e.target.value,
       });
       e.target.value = '';
+    },
+    deleteTask (taskIndex) {
+      this.DELETE_TASK({ tasks: this.column.tasks, taskIndex });
     },
   },
 };

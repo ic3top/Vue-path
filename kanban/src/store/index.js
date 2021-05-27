@@ -56,9 +56,7 @@ export default createStore({
         columnList.splice(toColumnIndex, 0, columnToMove);
       }
     },
-    DELETE_TASK (state, {
-      tasks, taskIndex,
-    }) {
+    DELETE_TASK (state, { tasks, taskIndex }) {
       tasks.splice(taskIndex, 1);
     },
   },
