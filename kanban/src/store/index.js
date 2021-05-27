@@ -59,5 +59,8 @@ export default createStore({
     DELETE_TASK (state, { tasks, taskIndex }) {
       tasks.splice(taskIndex, 1);
     },
+    DELETE_COLUMN(state, { columnIndex }) {
+      state.board.columns.splice(columnIndex, 1);
+    },
   },
 });

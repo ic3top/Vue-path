@@ -27,12 +27,8 @@
       </div>
     </div>
 
-    <div
-      class="task-bg"
-      v-if="isTaskOpen"
-      @click.self="close"
-    >
-      <router-view />
+    <div class="task-bg" v-if="isTaskOpen">
+      <router-view @close-task="close" @change-color="changeColor" />
     </div>
   </div>
 </template>
@@ -69,6 +65,10 @@ export default {
       });
 
       this.newColumnName = '';
+    },
+    changeColor({ color, task }) {
+      // eslint-disable-next-line no-param-reassign
+      task.backgroundColor = color;
     },
   },
 };

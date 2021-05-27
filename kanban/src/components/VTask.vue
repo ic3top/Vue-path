@@ -2,6 +2,7 @@
   <v-drop @drop="moveTaskOrColumn">
     <v-drag
       class="task relative"
+      :style="{ 'background-color': task.backgroundColor, 'color': task.textColor }"
       :class="{ done: task.done }"
       :transfer-data="{
         type: 'task',
@@ -10,7 +11,7 @@
       }"
       @click="goToTask(task)"
     >
-      <h3 class="text-lg font-bold">{{ task.name }}</h3>
+      <h3 class="text-lg font-bold pr-4">{{ task.name }}</h3>
       <p class="mt-1 text-sm" v-if="task.description">
         {{ task.description }}
       </p>
