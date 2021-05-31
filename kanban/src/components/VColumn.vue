@@ -8,23 +8,25 @@
         <font-awesome-icon icon="times" size="1x" />
       </button>
       <div class="list-none w-full">
-        <v-task
-          v-for="(task, taskIndex) in column.tasks"
-          :key="task.id"
-          :task="task"
-          :task-index="taskIndex"
-          :column="column"
-          :column-index="columnIndex"
-          :board="board"
-          @delete-task="deleteTask"
-        ></v-task>
+        <transition-group name="slide-left" tag="div" appear>
+          <v-task
+            v-for="(task, taskIndex) in column.tasks"
+            :key="task.id"
+            :task="task"
+            :task-index="taskIndex"
+            :column="column"
+            :column-index="columnIndex"
+            :board="board"
+            @delete-task="deleteTask"
+          ></v-task>
+        </transition-group>
 
         <input
-          type="text"
-          class="w-full p-2 bg-transparent"
-          placeholder="+ Enter new task"
-          @keyup.enter="createTask($event, column.tasks)"
-        >
+            type="text"
+            class="w-full p-2 bg-transparent"
+            placeholder="+ Enter new task"
+            @keyup.enter="createTask($event, column.tasks)"
+          >
       </div>
     </v-drag>
   </v-drop>

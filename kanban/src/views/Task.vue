@@ -1,5 +1,5 @@
 <template>
-  <div class="task-view relative">
+  <div class="task-view">
     <button class="absolute top-2 right-2 p-1" @click="$emit('close-task')">
       <font-awesome-icon icon="times" size="1x" />
     </button>
@@ -55,11 +55,18 @@ import { isLightColor } from '../utils';
 
 export default {
   name: 'Task',
+  emits: ['close-task'],
   computed: {
     ...mapGetters(['getTask']),
     task() {
       return this.getTask(this.$route.params.id);
     },
+  },
+  mounted() {
+    document.addEventListener('keydown', this.emitClose);
+  },
+  unmounted() {
+    document.removeEventListener('keypress', this.emitClose);
   },
   methods: {
     ...mapMutations(['UPDATE_TASK']),
@@ -80,13 +87,19 @@ export default {
       }
       this.UPDATE_TASK({ task: this.task, key: 'backgroundColor', value: color });
     },
+    emitClose(e) {
+      const keys = ['Escape', 'Enter', 'Control', 'Alt', 'Shift'];
+      if (keys.includes(e.key)) this.$emit('close-task');
+    },
   },
 };
 </script>
 
 <style>
 .task-view {
-  @apply relative bg-white m-32 mx-auto p-4 text-left rounded shadow-xl;
+  @apply absolute top-1/2 left-1/2 bg-white p-10 text-left rounded shadow-xl;
   max-width: 700px;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 1000;
 }
 </style>

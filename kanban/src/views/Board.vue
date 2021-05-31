@@ -1,13 +1,15 @@
 <template>
   <div class="board">
-    <div class="flex flex-row items-start">
-      <v-column
-        v-for="(column, columnIndex) of board.columns"
-        :key="columnIndex"
-        :column="column"
-        :columnIndex="columnIndex"
-        :board="board"
-      ></v-column>
+    <div class="flex items-start">
+      <transition-group name="slide-up" class="flex" tag="div" appear>
+        <v-column
+          v-for="(column, columnIndex) of board.columns"
+          :key="columnIndex"
+          :column="column"
+          :columnIndex="columnIndex"
+          :board="board"
+        ></v-column>
+      </transition-group>
 
       <div class="column flex pr-2">
         <input
@@ -27,9 +29,13 @@
       </div>
     </div>
 
-    <div class="task-bg" v-if="isTaskOpen">
-      <router-view @close-task="close" @change-color="changeColor" />
-    </div>
+        <router-view @close-task="close" @change-color="changeColor" v-slot="{ Component }">
+          <transition name="fade" appear>
+            <component :is="Component"></component>
+          </transition>
+          <div v-if="Component" class="task-bg">
+          </div>
+        </router-view>
   </div>
 </template>
 

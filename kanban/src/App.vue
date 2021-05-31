@@ -1,5 +1,5 @@
 <template>
-    <router-view/>
+   <router-view/>
 </template>
 
 <style>
@@ -36,5 +36,24 @@ body {
   100% {
     background-position: 0 50%;
   }
+}
+
+.slide-up-enter-from {
+  transform: translateY(-40px);
+  opacity: 0;
+}
+.slide-up-enter-active {
+  transition: all 0.2s ease-out;
+}
+
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.2s ease-out;
+}
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
