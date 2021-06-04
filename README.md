@@ -9,3 +9,4 @@
 4. [Random quote-app](https://ic3top.github.io/devChallenges/quote-generator/dist/)
 5. [Country quiz](https://ic3top.github.io/devChallenges/country-quiz-app/dist/)
 6. [Covid-tracker](http://vue-path-repo.site/covid-tracker/dist/)
+7. [Kanban board](http://vue-path-repo.site/kanban/dist/)
