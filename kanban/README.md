@@ -2,7 +2,7 @@
 > Kanban-like board to monitor your progress and whatnot...
 
 ## Overview
-Here is a [link](http://vue-path-repo.site/kanban/dist/) to this application.
+Here is a [link.](http://vue-path-repo.site/kanban/dist/)
 
 ## Technologies used
 * Vue 3
@@ -16,8 +16,8 @@ Here is a [link](http://vue-path-repo.site/kanban/dist/) to this application.
 * Drag and drop tasks/columns
 * Change name/description
 * Mark tasks as completed
-* Change task background
+* Change task's background
 
 ## TODOS
 * Make app fully adaptive
-* Add possibility to rename column
+* ~~Add possibility to rename column~~
