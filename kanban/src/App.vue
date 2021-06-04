@@ -1,6 +1,18 @@
 <template>
-   <router-view/>
+  <router-view />
+  <info-label />
 </template>
+
+<script>
+import InfoLabel from './components/InfoLabel.vue';
+
+export default {
+  name: 'App',
+  components: {
+    InfoLabel,
+  },
+};
+</script>
 
 <style>
 body, html {
@@ -44,6 +56,18 @@ body {
 }
 .slide-up-enter-active {
   transition: all 0.2s ease-out;
+}
+
+.slide-right-enter-from {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all 0.5s ease-out;
+}
+.slide-right-leave-to {
+  transform: translateX(-100%);
 }
 
 .fade-enter-from {

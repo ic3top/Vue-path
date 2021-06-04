@@ -29,13 +29,13 @@
       </div>
     </div>
 
-        <router-view @close-task="close" @change-color="changeColor" v-slot="{ Component }">
-          <transition name="fade" appear>
-            <component :is="Component"></component>
-          </transition>
-          <div v-if="Component" class="task-bg">
-          </div>
-        </router-view>
+    <router-view @close-task="close" v-slot="{ Component }">
+      <transition name="fade" appear>
+        <component :is="Component"></component>
+      </transition>
+      <div v-if="Component" class="task-bg">
+      </div>
+    </router-view>
   </div>
 </template>
 
@@ -71,10 +71,6 @@ export default {
       });
 
       this.newColumnName = '';
-    },
-    changeColor({ color, task }) {
-      // eslint-disable-next-line no-param-reassign
-      task.backgroundColor = color;
     },
   },
 };

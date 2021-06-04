@@ -1,9 +1,11 @@
 <template>
   <v-drop @drop="moveTaskOrColumn">
     <v-drag :transfer-data="{ type: 'column', fromColumnIndex: columnIndex }" class="column">
-      <h2 class="flex items-center mb-2 font-bold pr-4">
-        {{ column.name }}
-      </h2>
+      <input class="mb-2 font-bold p-1 pr-3 bg-transparent truncate"
+             :value="column.name"
+             @input="updateColumnName($event)"
+             @keyup.enter="$event.target.blur()"
+      />
       <button class="delete-btn" @click="deleteColumn">
         <font-awesome-icon icon="times" size="1x" />
       </button>
@@ -48,7 +50,7 @@ export default {
   },
   mixins: [moveTaskOrColumnMixin],
   methods: {
-    ...mapMutations(['CREATE_TASK', 'DELETE_TASK', 'DELETE_COLUMN']),
+    ...mapMutations(['CREATE_TASK', 'DELETE_TASK', 'DELETE_COLUMN', 'UPDATE_COLUMN']),
     createTask (e, tasks) {
       if (!e.target.value) return;
       this.CREATE_TASK({
@@ -62,6 +64,9 @@ export default {
     },
     deleteColumn () {
       this.DELETE_COLUMN({ columnIndex: this.columnIndex });
+    },
+    updateColumnName(event) {
+      this.UPDATE_COLUMN({ column: this.column, key: 'name', value: event.target.value });
     },
   },
 };

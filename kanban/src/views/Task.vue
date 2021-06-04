@@ -88,7 +88,7 @@ export default {
       this.UPDATE_TASK({ task: this.task, key: 'backgroundColor', value: color });
     },
     emitClose(e) {
-      const keys = ['Escape', 'Enter', 'Control', 'Alt', 'Shift'];
+      const keys = ['Escape', 'Enter'];
       if (keys.includes(e.key)) this.$emit('close-task');
     },
   },

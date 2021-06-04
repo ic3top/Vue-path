@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign, no-restricted-syntax  */
 import { createStore } from 'vuex';
 import defaultBoard from '../default-board';
 import { saveStatePlugin, uuid } from '../utils';
@@ -11,11 +12,10 @@ export default createStore({
   },
   getters: {
     getTask (state) {
+      // returns getter
       // eslint-disable-next-line consistent-return
       return (taskId) => {
-        // eslint-disable-next-line no-restricted-syntax
         for (const col of state.board.columns) {
-          // eslint-disable-next-line no-restricted-syntax
           for (const task of col.tasks) {
             if (task.id.toString() === taskId.toString()) {
               return task;
@@ -40,8 +40,10 @@ export default createStore({
       });
     },
     UPDATE_TASK (state, { task, key, value }) {
-      // eslint-disable-next-line no-param-reassign
       task[key] = value;
+    },
+    UPDATE_COLUMN (state, { column, key, value }) {
+      column[key] = value;
     },
     MOVE_TASK (state, {
       fromTasks, toTasks, fromTaskIndex, toTaskIndex,
@@ -59,7 +61,7 @@ export default createStore({
     DELETE_TASK (state, { tasks, taskIndex }) {
       tasks.splice(taskIndex, 1);
     },
-    DELETE_COLUMN(state, { columnIndex }) {
+    DELETE_COLUMN (state, { columnIndex }) {
       state.board.columns.splice(columnIndex, 1);
     },
   },
