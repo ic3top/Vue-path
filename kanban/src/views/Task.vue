@@ -71,10 +71,11 @@ export default {
   methods: {
     ...mapMutations(['UPDATE_TASK']),
     updateTaskProperty(e, key) {
+      const value = e.target.value.length > 0 ? e.target.value : 'not given :(';
       this.UPDATE_TASK({
         task: this.task,
         key,
-        value: e.target.value,
+        value,
       });
     },
     changeColor(event) {
