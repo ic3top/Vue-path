@@ -11,21 +11,29 @@
         ></v-column>
       </transition-group>
 
-      <div class="column flex pr-2">
-        <input
-          type="text"
-          class="p-2 flex-grow rounded-l"
-          placeholder="New column name..."
-          v-model="newColumnName"
-          @keyup.enter="createColumn"
-        >
-        <button
-          class="flex justify-center items-center p-1 bg-grey-lighter rounded-r hover:bg-grey"
-          @click="createColumn"
-          aria-label="Add task"
-        >
-          <font-awesome-icon icon="plus" size="2x" />
-        </button>
+      <div>
+        <transition name="slide-up-down" tag="div" class="mr-4" mode="out-in" appear>
+          <button
+            v-if="!showAddBlock"
+            @click="addColumnButtonClick($event)"
+            class="add-button"
+          >
+            + Add a new column
+          </button>
+          <div v-else>
+            <input
+              type="text"
+              class="p-2 rounded"
+              style="width: 230px"
+              placeholder="New column name..."
+              v-model="newColumnName"
+              @keyup.enter="createColumn($event)"
+              @keyup.esc="showAddBlock = false"
+              @blur="createColumn"
+              autofocus
+            >
+          </div>
+        </transition>
       </div>
     </div>
 
@@ -51,6 +59,7 @@ export default {
   data() {
     return {
       newColumnName: '',
+      showAddBlock: false,
     };
   },
   computed: {
@@ -64,13 +73,22 @@ export default {
     close () {
       this.$router.push({ name: 'board' });
     },
-    createColumn() {
-      if (this.newColumnName.length === 0) return;
+    createColumn(event) {
+      if (this.newColumnName.length === 0) {
+        this.showAddBlock = false;
+        return;
+      }
       this.CREATE_COLUMN({
         name: this.newColumnName,
       });
-
+      if (event) {
+        event.target.focus();
+      }
       this.newColumnName = '';
+    },
+    async addColumnButtonClick(event) {
+      this.showAddBlock = true;
+      event.target.blur();
     },
   },
 };
@@ -88,5 +106,10 @@ export default {
   left: 0;
   right: 0;
   background: rgba(0,0,0,0.5);
+}
+
+.add-button {
+  @apply flex items-center justify-center py-2 rounded bg-grey-light shadow font-bold;
+  min-width: 230px;
 }
 </style>

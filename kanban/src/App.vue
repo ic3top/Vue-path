@@ -50,12 +50,21 @@ body {
   }
 }
 
-.slide-up-enter-from {
+.slide-up-enter-from,
+.slide-up-down-enter-from {
   transform: translateY(-40px);
   opacity: 0;
 }
 .slide-up-enter-active {
   transition: all 0.2s ease-out;
+}
+
+.slide-up-down-enter-active,
+.slide-up-down-leave-active {
+  transition: all 0.2s ease-out;
+}
+.slide-up-down-leave-to {
+  transform: translateY(40px);
 }
 
 .slide-right-enter-from {

@@ -22,7 +22,7 @@
       @change="updateTaskProperty($event, 'description')"
     >
     </textarea>
-    <div class="flex gap-2">
+    <div class="flex md:flex-row gap-2 flex-col">
       <label
         :class="{ 'bg-green text-white': task.done }"
         class="flex items-center mt-2 p-2 rounded bg-grey-light font-bold"
@@ -97,7 +97,7 @@ export default {
 
 <style>
 .task-view {
-  @apply absolute top-1/2 left-1/2 bg-white p-10 text-left rounded shadow-xl;
+  @apply absolute md:top-1/2 top-1/3 left-1/2 bg-white p-8 text-left rounded shadow-xl;
   max-width: 700px;
   transform: translateX(-50%) translateY(-50%);
   z-index: 1000;

@@ -2,7 +2,7 @@
  <transition tag="div" name="slide-right" appear>
    <div v-if="show" class="info-label" @click="show=false">
      <div class="p-4">
-       <p>Try drag & drop all of the stuff<br>Customize your tasks, good luck!</p>
+       <p>Try 'drag & drop'<br>Customize your tasks, good luck!</p>
        <p class="text-sm">written by
          <a
            class="underline text-blue-lighter"
