@@ -72,7 +72,7 @@ export default {
     ...mapMutations(['UPDATE_TASK']),
     updateTaskProperty(e, key) {
       let { value } = e.target;
-      if (key === 'name' && value.length < 0) {
+      if (key === 'name' && value.length === 0) {
         value = 'unnamed task';
       }
 

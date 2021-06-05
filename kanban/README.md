@@ -1,9 +1,9 @@
 # kanban
-> Kanban-like board to monitor your progress and whatnot...
+> Kanban-like board to monitor your progress and time spending
 
 ## Overview
-Here is a [link.](http://vue-path-repo.site/kanban/dist/)
-The Vue Mastery course inspired me to create such application.
+Checkout project DEMO [here.](http://vue-path-repo.site/kanban/dist/)  
+The [Vue Mastery](https://www.vuemastery.com/) course inspired me to create such application.
 I have never used the drag & drop technique in vue-applications before, and I'm glad I've managed to do this, even with encapsulated logic in the separate component. 
 Also, that was my first shot with animating vue components.
 
@@ -23,3 +23,6 @@ Also, that was my first shot with animating vue components.
 
 ## TODOS
 * ~~Add possibility to rename column~~
+
+## Status
+* Project is _finished_
